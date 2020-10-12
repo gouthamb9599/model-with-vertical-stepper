@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import VerticalStepperComponent from "./VerticalStepperComponent";
 const { Text, Paragraph } = Typography;
 
-function ModalComponent({ config }) {
+function ModalComponent(props) {
   const [visible, setVisible] = useState(false);
+  // console.log(props.data.modalComponent);
+  const modalComponent = props.data.modalComponent;
+  console.log(modalComponent.VerticalStepper, modalComponent.step1);
   const openModal = () => {
     setVisible(!visible);
   };
@@ -16,11 +19,21 @@ function ModalComponent({ config }) {
       <Button type="primary" onClick={openModal}>
         Open Modal with customized button props
       </Button>
-      <Modal visible={visible} onCancel={onok} centered title="Change IMEI">
-        <Paragraph>Changing IMEI Number for 784-223-23422</Paragraph>
-        <Text disabled>3452 2314 1313 111</Text>
+      <Modal
+        visible={visible}
+        onCancel={onok}
+        centered
+        title={modalComponent.title}
+      >
+        <Paragraph>{modalComponent.description1}</Paragraph>
+        <Text disabled>{modalComponent.currentvalue}</Text>
         <Divider></Divider>
-        <VerticalStepperComponent />
+        <VerticalStepperComponent
+          data={modalComponent.VerticalStepper}
+          step1={modalComponent.step1}
+          step2={modalComponent.step2}
+          step3={modalComponent.step3}
+        />
       </Modal>
     </div>
   );

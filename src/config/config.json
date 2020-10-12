@@ -4,7 +4,7 @@
     "title": "Change IMEI",
     "description1": "Changing IMEI Number for 784-223-23422",
     "currentvalue": "3452 2314 1313 111",
-    "Vertical-stepper": {
+    "VerticalStepper": {
       "type": "StepperComponent",
       "direction": "vertical",
       "size": "small",
@@ -42,7 +42,7 @@
       "type": "StepComponent",
       "params": {
         "title": "New IMEI Number",
-        "description": "please enter New IMEI number",
+        "description": "Please enter New IMEI number",
         "error": "Invalid IMEI Number",
         "success": "1231 1231 1231 124",
         "buttons": [

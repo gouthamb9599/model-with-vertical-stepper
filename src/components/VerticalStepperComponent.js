@@ -4,7 +4,13 @@ const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 const { Search } = Input;
 
-function VerticalStepperComponent() {
+function VerticalStepperComponent(props) {
+  console.log(props);
+  const StepperDetails = props.data;
+  const step1Details = props.step1;
+  const step2Details = props.step2;
+  const step3Details = props.step3;
+  console.log(StepperDetails, step1Details, step2Details, step3Details);
   const [IMEI, setIMEI] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState(false);
@@ -28,7 +34,11 @@ function VerticalStepperComponent() {
     setError(false);
   };
   return (
-    <Steps direction="vertical" size="small" current={visualize}>
+    <Steps
+      direction="vertical"
+      size={StepperDetails.params.size}
+      current={visualize}
+    >
       <Step
         key={1}
         title={
@@ -36,7 +46,9 @@ function VerticalStepperComponent() {
             className="stepper-step-title-container"
             style={{ display: "flex" }}
           >
-            <Paragraph style={{ width: "116px" }}>New IMEI Number</Paragraph>
+            <Paragraph style={{ width: "116px" }}>
+              {step1Details.params.title}
+            </Paragraph>
             <Text style={{ position: "absolute", right: "-300px" }} disabled>
               Step 1
             </Text>
@@ -45,11 +57,11 @@ function VerticalStepperComponent() {
         description={
           <div className="stepper-step-description-container">
             <br />
-            {error === false && confirm === false ? (
+            {confirm === false ? (
               <div>
                 <Search
                   type="text"
-                  placeholder="please enter New IMEI number"
+                  placeholder={step1Details.params.description}
                   value={IMEI}
                   maxLength={15}
                   enterButton="Validate"
@@ -62,7 +74,7 @@ function VerticalStepperComponent() {
             )}
             {error === true ? (
               <div>
-                <Text type="danger">Invalid IMEI Number</Text>
+                <Text type="danger">{step1Details.params.error}</Text>
                 <br />
                 <Button onClick={retry}>Retry</Button>
               </div>
@@ -71,7 +83,7 @@ function VerticalStepperComponent() {
             )}
             {confirm === true ? (
               <div>
-                <Text type="success">1231 1231 1231 124</Text>
+                <Text type="success">{step1Details.params.success}</Text>
               </div>
             ) : (
               <></>
@@ -84,7 +96,10 @@ function VerticalStepperComponent() {
         key={2}
         title={
           <div style={{ display: "flex" }}>
-            <Paragraph style={{ width: "116px" }}>Validation</Paragraph>
+            <Paragraph style={{ width: "116px" }}>
+              {" "}
+              {step2Details.params.title}
+            </Paragraph>
             <Text style={{ position: "absolute", right: "-300px" }} disabled>
               Step 2
             </Text>
@@ -94,17 +109,16 @@ function VerticalStepperComponent() {
           <div className="stepper-step-title-container">
             {visualize === 2 ? (
               <div>
-                <Paragraph>
-                  Please confirm your IMEI change from 3452 2314 1313 111 to
-                  1231 2312 3123 124
-                </Paragraph>
-                <Button onClick={openConfirmation}>Confirm</Button>
+                <Paragraph>{step2Details.params.description}</Paragraph>
+                <Button onClick={openConfirmation}>
+                  {step2Details.params.buttons.name}
+                </Button>
               </div>
             ) : (
               <></>
             )}
             {visualize === 3 ? (
-              <Text type="success">IMEI SUCCESSFULLY VALIDATED</Text>
+              <Text type="success"> {step2Details.params.success}</Text>
             ) : (
               <></>
             )}
@@ -117,7 +131,9 @@ function VerticalStepperComponent() {
         key={3}
         title={
           <div style={{ display: "flex" }}>
-            <Paragraph style={{ width: "116px" }}>Confirmation</Paragraph>
+            <Paragraph style={{ width: "116px" }}>
+              {step3Details.params.title}
+            </Paragraph>
             <Text style={{ position: "absolute", right: "-300px" }} disabled>
               Step 3
             </Text>
@@ -127,13 +143,11 @@ function VerticalStepperComponent() {
           <div>
             {visualize === 3 ? (
               <div>
-                <Paragraph>
-                  Change IMEI for the selected device has successfully confirmed
-                </Paragraph>
+                <Paragraph>{step3Details.params.description}</Paragraph>
                 <Text>New IMEI:</Text>
-                <Text type="success">1231 1231 1231 124</Text>
+                <Text type="success"> {step3Details.params.new}</Text>
                 <Text>Old IMEI:</Text>
-                <Text>3452 2314 1313 111</Text>
+                <Text> {step3Details.params.old}</Text>
               </div>
             ) : (
               <></>
