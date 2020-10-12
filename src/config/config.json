@@ -1,0 +1,89 @@
+{
+  "modalComponent": {
+    "type": "ModalComponent",
+    "title": "Change IMEI",
+    "description1": "Changing IMEI Number for 784-223-23422",
+    "currentvalue": "3452 2314 1313 111",
+    "Vertical-stepper": {
+      "type": "StepperComponent",
+      "direction": "vertical",
+      "size": "small",
+      "params": {
+        "nextStepEvent": "CHANGECTN.INCREMENT",
+        "prevStepEvent": "CHANGECTN.DECREMENT",
+        "navigateToStepEvent": "CHANGECTN.NAVIGATE",
+        "resetEvent": "CHANGECTN.RESET",
+        "direction": "horizontal",
+        "stepperColor": "#52c41a"
+      },
+      "childComponents": [
+        { "id": "step1", "ref": "step1" },
+        { "id": "step2", "ref": "step2" },
+        { "id": "step3", "ref": "step3" }
+      ],
+      "styles": {
+        "stepsContent": {
+          "marginTop": "2%",
+          "border": "1% dashed #e9e9e9",
+          "borderRadius": "2px",
+          "backgroundColor": "#fafafa",
+          "minHeight": "55vh",
+          "padding": "2%"
+        },
+        "faqContainer": {
+          "backgroundColor": "white"
+        },
+        "hrFaq": { "borderTop": "2px dashed gray" },
+        "faqText": { "letterSpacing": "1.7px", "fontSize": "110%" },
+        "stpperIconStyle": { "fontSize": "7vh" }
+      }
+    },
+    "step1": {
+      "type": "StepComponent",
+      "params": {
+        "title": "New IMEI Number",
+        "description": "please enter New IMEI number",
+        "error": "Invalid IMEI Number",
+        "success": "1231 1231 1231 124",
+        "buttons": [
+          {
+            "type": "secondary",
+            "name": "Validate"
+          },
+          {
+            "type": "secondary",
+            "name": "Retry"
+          }
+        ]
+      }
+    },
+    "step2": {
+      "type": "StepComponent",
+      "params": {
+        "title": "Validation",
+        "description": "Please confirm your IMEI change from 3452 2314 1313 111 to 1231 2312 3123 124",
+        "success": "IMEI SUCCESSFULLY VALIDATED",
+        "buttons": [
+          {
+            "type": "primary",
+            "name": "Confirm"
+          },
+          {
+            "type": "secondary",
+            "name": "cancel"
+          }
+        ]
+      }
+    },
+    "step3": {
+      "type": "StepComponent",
+      "params": {
+        "title": "Confirmation",
+        "description": "Change IMEI for the selected device has successfully confirmed",
+        "old": "3452 2314 1313 111",
+        "new": "1231 1231 1231 124",
+        "buttons": []
+      }
+    }
+  }
+}
