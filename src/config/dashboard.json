@@ -1,0 +1,176 @@
+{
+  "components": {
+    "modalComponent": {
+      "type": "ModalComponent",
+      "title": "Change IMEI",
+      "description1": "Changing IMEI Number for 784-223-23422",
+      "currentvalue": "3452 2314 1313 111",
+      "VerticalStepper": {
+        "type": "StepperComponent",
+        "direction": "horizontal",
+        "value": "IMEI",
+        "size": "small",
+        "params": {
+          "nextStepEvent": "CHANGECTN.INCREMENT",
+          "prevStepEvent": "CHANGECTN.DECREMENT",
+          "navigateToStepEvent": "CHANGECTN.NAVIGATE",
+          "resetEvent": "CHANGECTN.RESET",
+          "direction": "horizontal",
+          "stepperColor": "#52c41a"
+        },
+        "childComponents": [
+          { "id": "step1", "ref": "step1" },
+          { "id": "step2", "ref": "step2" },
+          { "id": "step3", "ref": "step3" }
+        ],
+        "styles": {
+          "stepDiv": "stepDiv",
+          "stepTitle": "stepTitle",
+          "stepCount": "stepCount"
+        }
+      },
+      "step1": {
+        "type": "StepComponent",
+        "params": {
+          "maxLength": "15",
+          "title": "New IMEI Number",
+          "description": "Please enter New IMEI number",
+          "error": "Invalid IMEI Number",
+          "new": "123112311231124",
+          "success": "1231 1231 1231 124",
+          "buttons": [
+            {
+              "type": "secondary",
+              "name": "Validate"
+            },
+            {
+              "type": "secondary",
+              "name": "Retry"
+            }
+          ]
+        }
+      },
+      "step2": {
+        "type": "StepComponent",
+        "params": {
+          "title": "Validation",
+          "description": "Please confirm your IMEI change from 3452 2314 1313 111 to 1231 2312 3123 124",
+          "success": "IMEI SUCCESSFULLY VALIDATED",
+          "buttons": [
+            {
+              "type": "primary",
+              "name": "Confirm"
+            },
+            {
+              "type": "secondary",
+              "name": "cancel"
+            }
+          ]
+        }
+      },
+      "step3": {
+        "type": "StepComponent",
+        "params": {
+          "title": "Confirmation",
+          "description": "Change IMEI for the selected device has successfully confirmed",
+          "old": "3452 2314 1313 111",
+          "new": "1231 1231 1231 124",
+          "buttons": []
+        }
+      }
+    },
+    "modalComponent2": {
+      "type": "ModalComponent",
+      "title": "Change SIM",
+      "description1": "Changing SIM Number for 784-785-23422",
+      "currentvalue": "8902 2402 4709 8001",
+      "VerticalStepper": {
+        "type": "StepperComponent",
+        "value": "SIM",
+        "direction": "horizontal",
+        "size": "small",
+        "params": {
+          "nextStepEvent": "CHANGECTN.INCREMENT",
+          "prevStepEvent": "CHANGECTN.DECREMENT",
+          "navigateToStepEvent": "CHANGECTN.NAVIGATE",
+          "resetEvent": "CHANGECTN.RESET",
+          "direction": "horizontal",
+          "stepperColor": "#52c41a"
+        },
+        "childComponents": [
+          { "id": "step1", "ref": "step1" },
+          { "id": "step2", "ref": "step2" },
+          { "id": "step3", "ref": "step3" }
+        ],
+        "styles": {
+          "stepDiv": "stepDiv",
+          "stepTitle": "stepTitle",
+          "stepCount": "stepCount"
+        }
+      },
+      "step1": {
+        "type": "StepComponent",
+        "params": {
+          "maxLength": "16",
+          "title": "New SIM Number",
+          "description": "Please enter new SIM number",
+          "error": "Entered SIM Number is not valid",
+          "new": "8902240247098029",
+          "success": "8902 2402 4709 8029",
+          "buttons": [
+            {
+              "type": "secondary",
+              "name": "Validate"
+            },
+            {
+              "type": "secondary",
+              "name": "Retry"
+            }
+          ]
+        }
+      },
+      "step2": {
+        "type": "StepComponent",
+        "params": {
+          "title": "Acknowledge",
+          "description": "Please acknowledge and confirm the change of old SIM to 8902 2402 4709 8029",
+          "success": "CHANGE SIM ACKNOWLEDGED AND CONFIRMED",
+          "buttons": [
+            {
+              "type": "primary",
+              "name": "Confirm"
+            },
+            {
+              "type": "secondary",
+              "name": "cancel"
+            }
+          ]
+        }
+      },
+      "step3": {
+        "type": "StepComponent",
+        "params": {
+          "title": "Confirmation",
+          "description": "Change SIM for the selected device has successfully confirmed",
+          "old": "8902 2402 4709 8001",
+          "new": "8902 2402 4709 8029",
+          "buttons": []
+        }
+      }
+    }
+  },
+  "dashboards": {
+    "modalComponent": {
+      "components": [
+        {
+          "id": "modalComponent",
+          "ref": "modalComponent"
+        },
+        {
+          "id": "modalComponent2",
+          "ref": "modalComponent2"
+        }
+      ]
+    }
+  }
+}

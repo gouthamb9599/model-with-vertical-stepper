@@ -1,4 +1,4 @@
-import appConfig from "./config/config.json";
+import appConfig from "./config/dashboard.json";
 
 export function getDashboardIds() {
   return Object.keys(appConfig.dashboards);

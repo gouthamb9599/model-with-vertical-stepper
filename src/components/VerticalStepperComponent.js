@@ -1,22 +1,22 @@
 import { Button, Steps, Typography, Input } from "antd";
 import React, { useState } from "react";
+import { getComponentForProps } from "../helper";
+import "../styles/VerticalStepperComponent.less";
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 const { Search } = Input;
 
 function VerticalStepperComponent(props) {
-  console.log(props);
   const StepperDetails = props.data;
   const step1Details = props.step1;
   const step2Details = props.step2;
   const step3Details = props.step3;
-  console.log(StepperDetails, step1Details, step2Details, step3Details);
   const [IMEI, setIMEI] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState(false);
   const [visualize, setVisualize] = useState(1);
   const checkIMEI = () => {
-    if (IMEI === "123123123124") {
+    if (IMEI === step1Details.params.new) {
       setConfirm(true);
       setVisualize(2);
     } else {
@@ -29,27 +29,40 @@ function VerticalStepperComponent(props) {
   const handlechange = (e) => {
     setIMEI(e.target.value);
   };
-  const retry = () => {
-    setConfirm(false);
-    setError(false);
+  let getButtons = () => {
+    if (step1Details.params.buttons.length > 0) {
+      const buttons = [];
+      params.buttons.forEach((buttonConfig) => {
+        buttons.push(getComponentForProps("ButtonComponent", buttonConfig));
+      });
+      return buttons;
+    }
   };
+
   return (
     <Steps
-      direction="vertical"
-      size={StepperDetails.params.size}
+      direction={StepperDetails.direction}
+      size={StepperDetails.size}
       current={visualize}
     >
       <Step
         key={1}
         title={
           <div
-            className="stepper-step-title-container"
+            className={StepperDetails.styles.stepDiv}
             style={{ display: "flex" }}
           >
-            <Paragraph style={{ width: "116px" }}>
+            <Paragraph
+              className={StepperDetails.styles.stepTitle}
+              style={{ width: "150px" }}
+            >
               {step1Details.params.title}
             </Paragraph>
-            <Text style={{ position: "absolute", right: "-300px" }} disabled>
+            <Text
+              className={StepperDetails.styles.stepCount}
+              style={{ position: "absolute", right: "-250px" }}
+              disabled
+            >
               Step 1
             </Text>
           </div>
@@ -63,7 +76,7 @@ function VerticalStepperComponent(props) {
                   type="text"
                   placeholder={step1Details.params.description}
                   value={IMEI}
-                  maxLength={15}
+                  maxLength={step1Details.params.maxLength}
                   enterButton="Validate"
                   onSearch={checkIMEI}
                   onChange={handlechange}
@@ -72,11 +85,11 @@ function VerticalStepperComponent(props) {
             ) : (
               <></>
             )}
-            {error === true ? (
+            {error === true && confirm === false ? (
               <div>
                 <Text type="danger">{step1Details.params.error}</Text>
-                <br />
-                <Button onClick={retry}>Retry</Button>
+                {/* <br />
+                <Button onClick={retry}>Retry</Button> */}
               </div>
             ) : (
               <></>
@@ -95,24 +108,31 @@ function VerticalStepperComponent(props) {
       <Step
         key={2}
         title={
-          <div style={{ display: "flex" }}>
-            <Paragraph style={{ width: "116px" }}>
-              {" "}
+          <div
+            className={StepperDetails.styles.stepDiv}
+            style={{ display: "flex" }}
+          >
+            <Paragraph
+              className={StepperDetails.styles.stepTitle}
+              style={{ width: "150px" }}
+            >
               {step2Details.params.title}
             </Paragraph>
-            <Text style={{ position: "absolute", right: "-300px" }} disabled>
+            <Text
+              className={StepperDetails.styles.stepCount}
+              style={{ position: "absolute", right: "-250px" }}
+              disabled
+            >
               Step 2
             </Text>
           </div>
         }
         description={
-          <div className="stepper-step-title-container">
+          <div className="stepper-step-description-container">
             {visualize === 2 ? (
               <div>
                 <Paragraph>{step2Details.params.description}</Paragraph>
-                <Button onClick={openConfirmation}>
-                  {step2Details.params.buttons.name}
-                </Button>
+                {getButtons(step2Details.params.buttons)}
               </div>
             ) : (
               <></>
@@ -130,11 +150,21 @@ function VerticalStepperComponent(props) {
       <Step
         key={3}
         title={
-          <div style={{ display: "flex" }}>
-            <Paragraph style={{ width: "116px" }}>
+          <div
+            className={StepperDetails.styles.stepDiv}
+            style={{ display: "flex" }}
+          >
+            <Paragraph
+              className={StepperDetails.styles.stepTitle}
+              style={{ width: "150px" }}
+            >
               {step3Details.params.title}
             </Paragraph>
-            <Text style={{ position: "absolute", right: "-300px" }} disabled>
+            <Text
+              className={StepperDetails.styles.stepCount}
+              style={{ position: "absolute", right: "-250px" }}
+              disabled
+            >
               Step 3
             </Text>
           </div>
@@ -144,9 +174,9 @@ function VerticalStepperComponent(props) {
             {visualize === 3 ? (
               <div>
                 <Paragraph>{step3Details.params.description}</Paragraph>
-                <Text>New IMEI:</Text>
+                <Text>New {StepperDetails.value}:</Text>
                 <Text type="success"> {step3Details.params.new}</Text>
-                <Text>Old IMEI:</Text>
+                <Text>Old {StepperDetails.value}:</Text>
                 <Text> {step3Details.params.old}</Text>
               </div>
             ) : (

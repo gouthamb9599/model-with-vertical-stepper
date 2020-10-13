@@ -1,13 +1,12 @@
 import { Modal, Typography, Divider, Button } from "antd";
 import React, { useState } from "react";
 import VerticalStepperComponent from "./VerticalStepperComponent";
+import "../styles/ModalComponent.less";
 const { Text, Paragraph } = Typography;
 
 function ModalComponent(props) {
   const [visible, setVisible] = useState(false);
-  // console.log(props.data.modalComponent);
-  const modalComponent = props.data.modalComponent;
-  console.log(modalComponent.VerticalStepper, modalComponent.step1);
+  const modalComponent = props.data;
   const openModal = () => {
     setVisible(!visible);
   };
@@ -16,9 +15,7 @@ function ModalComponent(props) {
   };
   return (
     <div>
-      <Button type="primary" onClick={openModal}>
-        Open Modal with customized button props
-      </Button>
+      <Button onClick={openModal}>{modalComponent.title}</Button>
       <Modal
         visible={visible}
         onCancel={onok}
