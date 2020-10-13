@@ -8,6 +8,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@craco/craco": "5.7.0",
     "antd": "4.7.0",
     "craco-less": "1.17.0",
     "react": "16.13.1",
@@ -17,7 +18,7 @@
   "devDependencies": {
     "typescript": "3.8.3"
   },
-   "scripts": {
+  "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --env=jsdom",
