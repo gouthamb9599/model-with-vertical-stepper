@@ -1,22 +1,24 @@
 import { Button, Steps, Typography, Input } from "antd";
 import React, { useState } from "react";
-import { getComponentForProps } from "../helper";
+// import { getComponentForProps } from "../helper";
 import "../styles/VerticalStepperComponent.less";
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 const { Search } = Input;
 
 function VerticalStepperComponent(props) {
+  // console.log(props);
   const StepperDetails = props.data;
-  const step1Details = props.step1;
-  const step2Details = props.step2;
-  const step3Details = props.step3;
+  const step1Details = props.step1.params;
+  const step2Details = props.step2.params;
+  const step3Details = props.step3.params;
+  // console.log(StepperDetails, step1Details, step2Details, step3Details);
   const [IMEI, setIMEI] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState(false);
   const [visualize, setVisualize] = useState(1);
   const checkIMEI = () => {
-    if (IMEI === step1Details.params.new) {
+    if (IMEI === step1Details.new) {
       setConfirm(true);
       setVisualize(2);
     } else {
@@ -29,22 +31,18 @@ function VerticalStepperComponent(props) {
   const handlechange = (e) => {
     setIMEI(e.target.value);
   };
-  let getButtons = () => {
-    if (step1Details.params.buttons.length > 0) {
-      const buttons = [];
-      params.buttons.forEach((buttonConfig) => {
-        buttons.push(getComponentForProps("ButtonComponent", buttonConfig));
-      });
-      return buttons;
-    }
-  };
+  // let getButtons = (data) => {
+  //   if (data.length > 0) {
+  //     const buttons = [];
+  //     data.forEach((buttonConfig) => {
+  //       buttons.push(getComponentForProps("ButtonComponent", buttonConfig));
+  //     });
+  //     return buttons;
+  //   }
+  // };
 
   return (
-    <Steps
-      direction={StepperDetails.direction}
-      size={StepperDetails.size}
-      current={visualize}
-    >
+    <Steps direction="vertical" size={StepperDetails.size} current={visualize}>
       <Step
         key={1}
         title={
@@ -56,7 +54,7 @@ function VerticalStepperComponent(props) {
               className={StepperDetails.styles.stepTitle}
               style={{ width: "150px" }}
             >
-              {step1Details.params.title}
+              {step1Details.title}
             </Paragraph>
             <Text
               className={StepperDetails.styles.stepCount}
@@ -74,9 +72,9 @@ function VerticalStepperComponent(props) {
               <div>
                 <Search
                   type="text"
-                  placeholder={step1Details.params.description}
+                  placeholder={step1Details.description}
                   value={IMEI}
-                  maxLength={step1Details.params.maxLength}
+                  maxLength={step1Details.maxLength}
                   enterButton="Validate"
                   onSearch={checkIMEI}
                   onChange={handlechange}
@@ -87,7 +85,7 @@ function VerticalStepperComponent(props) {
             )}
             {error === true && confirm === false ? (
               <div>
-                <Text type="danger">{step1Details.params.error}</Text>
+                <Text type="danger">{step1Details.error}</Text>
                 {/* <br />
                 <Button onClick={retry}>Retry</Button> */}
               </div>
@@ -96,7 +94,7 @@ function VerticalStepperComponent(props) {
             )}
             {confirm === true ? (
               <div>
-                <Text type="success">{step1Details.params.success}</Text>
+                <Text type="success">{step1Details.success}</Text>
               </div>
             ) : (
               <></>
@@ -116,7 +114,7 @@ function VerticalStepperComponent(props) {
               className={StepperDetails.styles.stepTitle}
               style={{ width: "150px" }}
             >
-              {step2Details.params.title}
+              {step2Details.title}
             </Paragraph>
             <Text
               className={StepperDetails.styles.stepCount}
@@ -131,14 +129,15 @@ function VerticalStepperComponent(props) {
           <div className="stepper-step-description-container">
             {visualize === 2 ? (
               <div>
-                <Paragraph>{step2Details.params.description}</Paragraph>
-                {getButtons(step2Details.params.buttons)}
+                <Paragraph>{step2Details.description}</Paragraph>
+                <Button onClick={openConfirmation}>confirm</Button>
+                {/* {getButtons(step2Details.buttons)} */}
               </div>
             ) : (
               <></>
             )}
             {visualize === 3 ? (
-              <Text type="success"> {step2Details.params.success}</Text>
+              <Text type="success"> {step2Details.success}</Text>
             ) : (
               <></>
             )}
@@ -158,7 +157,7 @@ function VerticalStepperComponent(props) {
               className={StepperDetails.styles.stepTitle}
               style={{ width: "150px" }}
             >
-              {step3Details.params.title}
+              {step3Details.title}
             </Paragraph>
             <Text
               className={StepperDetails.styles.stepCount}
@@ -173,11 +172,11 @@ function VerticalStepperComponent(props) {
           <div>
             {visualize === 3 ? (
               <div>
-                <Paragraph>{step3Details.params.description}</Paragraph>
+                <Paragraph>{step3Details.description}</Paragraph>
                 <Text>New {StepperDetails.value}:</Text>
-                <Text type="success"> {step3Details.params.new}</Text>
+                <Text type="success"> {step3Details.new}</Text>
                 <Text>Old {StepperDetails.value}:</Text>
-                <Text> {step3Details.params.old}</Text>
+                <Text> {step3Details.old}</Text>
               </div>
             ) : (
               <></>

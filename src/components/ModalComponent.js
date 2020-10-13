@@ -4,32 +4,40 @@ import VerticalStepperComponent from "./VerticalStepperComponent";
 import "../styles/ModalComponent.less";
 const { Text, Paragraph } = Typography;
 
-function ModalComponent(props) {
+function ModalComponent({ config }) {
+  console.log(config);
   const [visible, setVisible] = useState(false);
-  const modalComponent = props.data;
   const openModal = () => {
     setVisible(!visible);
   };
-  const onok = () => {
+  const handleOk = () => {
     setVisible(false);
   };
   return (
     <div>
-      <Button onClick={openModal}>{modalComponent.title}</Button>
+      <Button onClick={openModal}>{config.title}</Button>
       <Modal
         visible={visible}
-        onCancel={onok}
+        onCancel={handleOk}
         centered
-        title={modalComponent.title}
+        title={config.title}
+        footer={[
+          <Button key="Cancel" onClick={handleOk}>
+            Cancel
+          </Button>,
+          <Button key="Done" type="primary" onClick={handleOk}>
+            Done
+          </Button>
+        ]}
       >
-        <Paragraph>{modalComponent.description1}</Paragraph>
-        <Text disabled>{modalComponent.currentvalue}</Text>
+        <Paragraph>{config.description1}</Paragraph>
+        <Text disabled>{config.currentvalue}</Text>
         <Divider></Divider>
         <VerticalStepperComponent
-          data={modalComponent.VerticalStepper}
-          step1={modalComponent.step1}
-          step2={modalComponent.step2}
-          step3={modalComponent.step3}
+          data={config.VerticalStepper}
+          step1={config.step1}
+          step2={config.step2}
+          step3={config.step3}
         />
       </Modal>
     </div>
